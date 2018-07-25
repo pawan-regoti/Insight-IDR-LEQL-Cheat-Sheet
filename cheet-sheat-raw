@@ -1,0 +1,21 @@
+where(connection_status=DENY)groupby(source_address)
+
+where(source_ip=<IP> AND result!=FAILED_BAD_LOGIN)
+
+where(source_ip=/192.168.1./)
+
+where(source_ip/<IP>/ AND result!=SUCCESS)calculate(count)
+
+where(result=FAILED_BAD_LOGIN)calculate(UNIQUE:source_ip)
+
+where(source_ip=<IP>)groupby(result)calculate(count)
+
+where(service=0365 AND result=FAILED_BAD_LOGIN)groupby(source_ip)
+
+where(/facebook/ AND user!="unknown")group_by(user)
+
+where(geoip_city="<CITY NAME>"groupby(user))
+
+where(geoip_country_code!=US)groupby(geoip_country_name)sort(desc)
+
+(select "VPN" only under "Ingress Authentication")(account="<USER ID>")
