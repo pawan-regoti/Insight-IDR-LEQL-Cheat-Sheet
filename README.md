@@ -30,3 +30,14 @@ Query:
 
 `where(service=0365 AND result=FAILED_BAD_LOGIN)groupby(source_ip)` //This search groups by IP Address, all failed login attempts.
 
+`where(/facebook/ AND user!="unknown")group_by(user)` //This search groups up Facebook users on your network. Good for looking up time wasters.
+
+`where(geoip_city="<CITY NAME>"groupby(user))` //This search groups up users authenticating from specific IP Addresses, or any other log information that has geolocation.
+
+`where(geoip_country_code!=US)groupby(geoip_country_name)sort(desc)` //This search groups up Countries by name and sorts them in descending order.
+
+`(select "VPN" only under "Ingress Authentication")(account="<USER ID>")` //This search checks logins to VPN connections.
+
+---
+
+Overall, it is best to fine-tune your searches to what specific data you are feeding your Insight-IDR instance. If you learn your environment, learn your specific search queries, you can create rules to detect and thwart the most sophisticated hackers.
