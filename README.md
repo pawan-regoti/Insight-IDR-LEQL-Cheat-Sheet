@@ -10,6 +10,8 @@ Where(search) GroupBy(field) Calculate(function:field)
 
 Here are some custom searches designed to locate enemies. This will help you locate your attacker faster, with more precision.
 
+---
+
 Queries (Select) Mode (Advanced):
 
 Query:
