@@ -1,21 +1,21 @@
-where(connection_status=DENY)groupby(source_address)
+where(connection_status=DENY)groupby(source_address) //This search locates firewall logs that have denied entry to specific hosts, then groups them by the most denied.
 
-where(source_ip=<IP> AND result!=FAILED_BAD_LOGIN)
+where(source_ip=<IP> AND result!=FAILED_BAD_LOGIN) //This search locates Office365 login attempts and checks to see if there is any successful logins from what could possibly be a brute force attack.
 
-where(source_ip=/192.168.1./)
+where(source_ip=/192.168.1./) //This search checks the entire /24 subnet of 192.168.1.1 for logs. Helpful when looking for adversaries.
 
-where(source_ip/<IP>/ AND result!=SUCCESS)calculate(count)
+where(source_ip/<IP>/ AND result!=SUCCESS)calculate(count) //This search locates brute force attempts in order to create reporting for clients.
 
-where(result=FAILED_BAD_LOGIN)calculate(UNIQUE:source_ip)
+where(result=FAILED_BAD_LOGIN)calculate(UNIQUE:source_ip) //This search calculates the number of Unique IP Addresses in your logs for failed login attempts.
 
-where(source_ip=<IP>)groupby(result)calculate(count)
+where(source_ip=<IP>)groupby(result)calculate(count) //This search groups up results
 
-where(service=0365 AND result=FAILED_BAD_LOGIN)groupby(source_ip)
+where(service=0365 AND result=FAILED_BAD_LOGIN)groupby(source_ip) //This search groups by IP Address, all failed login attempts.
 
-where(/facebook/ AND user!="unknown")group_by(user)
+where(/facebook/ AND user!="unknown")group_by(user) //This search groups up Facebook users on your network. Good for looking up time wasters.
 
-where(geoip_city="<CITY NAME>"groupby(user))
+where(geoip_city="<CITY NAME>"groupby(user)) //This search groups up users authenticating from specific IP Addresses, or any other log information that has geolocation.
 
-where(geoip_country_code!=US)groupby(geoip_country_name)sort(desc)
+where(geoip_country_code!=US)groupby(geoip_country_name)sort(desc) //This search groups up Countries by name and sorts them in descending order.
 
-(select "VPN" only under "Ingress Authentication")(account="<USER ID>")
+(select "VPN" only under "Ingress Authentication")(account="<USER ID>") //This search checks logins to VPN connections.
